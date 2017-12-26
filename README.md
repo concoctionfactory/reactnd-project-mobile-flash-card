@@ -1,4 +1,4 @@
-#Mobile Flash Card
+# Mobile Flash Card
 This is a mobile app, that helps users study using digital flash card. Users can create "decks" or collection of questions and then add question or take a quiz and be scored on thir results
 
 
