@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View,Text,StyleSheet } from 'react-native'
 import { gray, orange, white, purple } from '../utils/colors'
+import { NavigationActions } from 'react-navigation'
+
 
 import TextButton from './TextButton'
 import DeckInfo from './DeckInfo'
@@ -13,7 +15,8 @@ export default class Quiz extends Component{
         currentQuestion:0,
         questions:[],
         score:0,
-        totalQuestions:0
+        totalQuestions:0,
+        title:""
     };
 
 
@@ -24,12 +27,14 @@ export default class Quiz extends Component{
 
     componentDidMount () {
         const questions= this.props.navigation.state.params.deck.questions
-        const totalQuestions= this.props.navigation.state.params.deck.questions
+        const title= this.props.navigation.state.params.deck.title
+        
         
         this.setState((state)=>({
             ...state,
             questions:[...questions],
-            totalQuestions: questions.length
+            totalQuestions: questions.length,
+            title:title
         }))
     }
 
@@ -47,6 +52,25 @@ export default class Quiz extends Component{
         this.setState((state)=>({
             ...state,
             currentQuestion: state.currentQuestion+1
+        }))
+    }
+
+
+    navDeck =(title) =>{
+        const {navigate} =this.props.navigation;
+        navigate('DeckView',{title: this.state.title})   
+    }
+
+    navDeckBack =(title) =>{
+        const {deck} = this.props.navigation.state.params;
+        this.props.navigation.dispatch(NavigationActions.back({title: this.state.title}))
+    }
+
+    reset = ()=>{
+        this.setState((state)=>({
+            ...state,
+            currentQuestion: 0,
+            score:0
         }))
     }
 
@@ -74,8 +98,19 @@ export default class Quiz extends Component{
                     </View>
                 </View>
                 :<View style={styles.scoreContainer}>
-                    <Text style={{fontSize: 25, color: purple}}>you scored</Text>
-                    <Text style={{fontSize: 50, color: gray, margin:10}}>{`${score/totalQuestions*100}%`}</Text>
+                    <View style={styles.quizInfo}>
+                        <Text style={{fontSize: 25, color: purple}}>you scored</Text>
+                        <Text style={{fontSize: 50, color: gray, margin:10}}>{`${Math.round( score/totalQuestions*100)}%`}</Text>
+                    </View>
+
+                    <View style={styles.quizButtons}>
+                        <TextButton style={{margin: 20}} onPress={()=>this.reset()}>
+                            restart quiz
+                        </TextButton>
+                        <TextButton style={{margin: 20}} onPress={()=>this.navDeckBack()}>
+                            back to deck
+                        </TextButton>
+                    </View>
                 </View>
             }
             </View>

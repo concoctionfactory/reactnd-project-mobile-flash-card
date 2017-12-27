@@ -14,7 +14,7 @@ import TextButton from './TextButton'
 class DeckList extends Component{
     state={}
     static navigationOptions = ({navigation}) => {
-        const {title}= navigation.state.params.deck
+        const title= navigation.state.params.title
         return {
           title: title
         }
@@ -35,15 +35,14 @@ class DeckList extends Component{
 
     render(){
         console.log(this.props)
-        const deck= this.props.navigation.state.params.deck
-        const title =  deck.title
+        const title= this.props.navigation.state.params.title
         const deckState = this.props.decks[title]
         
         const showQiz = deckState.questions && deckState.questions.length>0
         return (
             <View style={styles.container}>
                 <View style={styles.deckInfo}>
-                    <DeckInfo  deck={deckState} /> 
+                    <DeckInfo  title={title} /> 
                 </View>
                 <View style={styles.deckButtons}>
                     <TextButton onPress={()=>this.navAddQuestion(deckState)}>

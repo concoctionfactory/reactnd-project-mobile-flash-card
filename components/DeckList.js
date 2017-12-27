@@ -31,14 +31,15 @@ class DeckList extends Component{
             <ScrollView style={styles.deckList}>
                 {Object.keys(decks).map((key)=> {
                     const deck =decks[key]
+                    const title= deck.title
                      return (
                         <TouchableOpacity style={styles.deckContainer} key={key}
                             onPress={() =>navigate(
                                 'DeckView',
-                                { deck: deck }
+                                { title: title }
                                 )}                     
                         >
-                            <DeckInfo deck={deck} />
+                            <DeckInfo title={title} />
                         </TouchableOpacity>
                      )
                 })}

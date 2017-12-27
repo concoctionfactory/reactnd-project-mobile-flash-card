@@ -22,12 +22,19 @@ class AddDeck extends Component{
         dispatch(addDeck(submitTitle))
         saveDeckTitle(submitTitle)
         this.navHome();
+        this.navDeck();
     }
 
 
     navHome = () =>{
         const {navigate} =this.props.navigation;
         navigate('Home')                   
+    }
+
+    navDeck =(title) =>{
+        const {navigate} =this.props.navigation;
+        const submitTitle = this.state.title? this.state.title :"test title"
+        navigate('DeckView',{title: submitTitle})   
     }
 
 

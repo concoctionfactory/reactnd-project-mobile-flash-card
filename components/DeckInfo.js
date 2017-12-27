@@ -9,8 +9,7 @@ import { gray, orange, blue, white, purple } from '../utils/colors'
 class DeckInfo extends Component{
     render(){
         console.log("info")
-        const title =  this.props.deck.title
-        const deck  =  this.props
+        const title =  this.props.title
         const deckState = this.props.decks[title]
         return (
             <View style={styles.info}>
